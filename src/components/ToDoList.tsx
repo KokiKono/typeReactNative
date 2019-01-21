@@ -9,8 +9,13 @@ Container,
 Content
 } from 'native-base';
 
+import {ToDo as ToDoType} from '../redux/store';
 
-const ToDoItem = (todo) => (
+interface Props {
+    todos: Array<ToDoType>
+}
+
+const ToDoItem = (todo: ToDoType) => (
     <Card key={todo.id}>
         <CardItem>
             <Body>
@@ -20,7 +25,7 @@ const ToDoItem = (todo) => (
     </Card>
 )
 
-class ToDoList extends React.Component {
+class ToDoList extends React.Component<Props> {
     render() {
         const { todos } = this.props;
         return (
@@ -33,4 +38,4 @@ class ToDoList extends React.Component {
     }
 }
 
-export default ToDoList;
+export default ToDoList
