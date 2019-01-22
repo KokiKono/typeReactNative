@@ -1,3 +1,4 @@
+import React from 'react';
 import { Navigation } from 'react-native-navigation';
 
 import {
@@ -23,17 +24,13 @@ function WrappedComponent(Component) {
                 />
             </Provider>
         );
-        return EnhancedComponent;
+        return <EnhancedComponent />;
     }
 }
 
 export default function() {
-    // Navigation.registerComponent(HOME_SCREEN, () => WrappedComponent(HomeScreen));
-    // Navigation.registerComponent(ACCOUNT_SCREEN, () => WrappedComponent(AccountScreen));
-    // Navigation.registerComponent(SETTING_SCREEN, () => WrappedComponent(SettingScreen));
-    Navigation.registerComponent(HOME_SCREEN, () => HomeScreen);
-    Navigation.registerComponent(ACCOUNT_SCREEN, () => AccountScreen);
-    Navigation.registerComponent(SETTING_SCREEN, () => SettingScreen);
-    
+    Navigation.registerComponent(HOME_SCREEN, () => WrappedComponent(HomeScreen));
+    Navigation.registerComponent(ACCOUNT_SCREEN, () => WrappedComponent(AccountScreen));
+    Navigation.registerComponent(SETTING_SCREEN, () => WrappedComponent(SettingScreen));
     console.info('All screens have been registered...');
 }
