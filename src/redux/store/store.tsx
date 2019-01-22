@@ -9,8 +9,10 @@ import {
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import { createLogger } from 'redux-logger';
-import { composeWithDevTools } from 'remote-redux-devtools';
-import { persistStore } from 'redux-persist';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+import rootReducer from '../reducers';
 
 export default function initializeState() {
     const sagaMiddleware = createSagaMiddleware();
@@ -21,24 +23,18 @@ export default function initializeState() {
     ,   __DEV__ ? createLogger() : null
     ]);
 
-    let debuggWrapper = data => data;
-    if (__DEV__) {
-        debuggWrapper = composeWithDevTools({ realtime: true, port: 8000 });
-    }
-
+    const persistConfig = {
+        key: 'type_react_native'
+    ,   storage
+    ,   whitelist: ['todos']
+    };
+    const persistedReducer = persistReducer(persistConfig, rootReducer);
     const store = createStore(
-        null
-    ,    {}
-    ,   debuggWrapper(compose(applyMiddleware(...middleware)))
+        persistedReducer
+    ,   applyMiddleware(...middleware)
     );
 
-    persistStore(
-        store
-    ,   null
-    ,   () => {
-            store.getState();
-        }
-    );
+    const persistor = persistStore(store);
 
-    return store;
+    return {store, persistor};
 }

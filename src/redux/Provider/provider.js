@@ -2,26 +2,17 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import createStore  from '../store';
 
-let store;
+import { PersistGate } from 'redux-persist/integration/react';
 
-interface Props {
-    children: React.Component
-}
 class AppStoreProvider extends React.PureComponent {
-    getChildContext() {
-        return {
-            store,
-        };
-    }
-    static childContextTypes = {
-        store: Object
-    }
     render() {
         const { children } = this.props;
-        store = store || createStore();
+        const { store, persistor } = createStore();
         return (
             <Provider store={store}>
-                {children}
+                <PersistGate loading={null} persistor={persistor}>
+                    {children}
+                </PersistGate>
             </Provider>
         );
     }
