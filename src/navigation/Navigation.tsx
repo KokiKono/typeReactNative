@@ -1,3 +1,4 @@
+import React from 'react';
 import { Navigation } from 'react-native-navigation';
 
 import {
@@ -19,6 +20,10 @@ const HomeComponent = {
                         title: {
                             text: 'ホーム'
                         }
+                    ,   leftButtons: [{
+                            id: 'add_todo'
+                        ,   systemItem: 'add'
+                        }]
                     }
                 }
             }
