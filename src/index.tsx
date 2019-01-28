@@ -1,7 +1,9 @@
+import React from 'react';
+import { AppRegistry } from 'react-native';
 import { YellowBox } from 'react-native';
-import { Navigation } from 'react-native-navigation';
-import { setUp } from './navigation/Navigation';
 
+import { name as appName } from '../app.json';
+import App from './App';
 // Ignore yellow box
 YellowBox.ignoreWarnings([
     'Warning: isMounted(...) is deprecated',
@@ -11,6 +13,4 @@ YellowBox.ignoreWarnings([
     'Required dispatch_sync to load constants',
 ]);
 
-Navigation.events().registerAppLaunchedListener(() => {
-    setUp();
-});
+AppRegistry.registerComponent(appName, () => App);

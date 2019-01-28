@@ -1,4 +1,5 @@
 // @flow
-export const HOME_SCREEN = 'typescript.native.HomeScreen';
-export const ACCOUNT_SCREEN = 'typescript.native.AccountScreen';
-export const SETTING_SCREEN = 'typescript.native.SettingScreen';
+export const HOME       = 'typescript.native.HomeScreen';
+export const ACCOUNT    = 'typescript.native.AccountScreen';
+export const SETTING    = 'typescript.native.SettingScreen';
+export const ADD_TODO   = 'typescript.native.AddToDoScreen';

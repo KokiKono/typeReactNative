@@ -9,7 +9,6 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import <ReactNativeNavigation/ReactNativeNavigation.h>
 
 @implementation AppDelegate
 
@@ -35,7 +34,6 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-  [ReactNativeNavigation bootstrap:jsCodeLocation launchOptions: launchOptions];
   return YES;
 }
 

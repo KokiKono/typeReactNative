@@ -1,39 +1,39 @@
 import React from 'react';
-
 import {
-    Card
-,   CardItem
-,   Body
-,   Text,
-Container,
-Content
+    FlatList
+} from 'react-native';
+import {
+    Text
+,   ListItem
 } from 'native-base';
-
-import {ToDo as ToDoType} from '../redux/store';
+import { ToDoListState } from '../store/todos';
 
 interface Props {
-    todos: Array<ToDoType>
+    todo_list: ToDoListState
 }
 
-const ToDoItem = (todo: ToDoType) => (
-    <Card key={todo.id}>
-        <CardItem>
-            <Body>
-                <Text>{todo.title}</Text>
-            </Body>
-        </CardItem>
-    </Card>
-)
-
 class ToDoList extends React.Component<Props> {
+    constructor(props: Props) {
+        super(props);
+
+    }
+    renderToDo = ({ item }) => {
+       return (
+        <ListItem>
+            <Text>{item.title}</Text>
+        </ListItem>
+       )
+    };
     render() {
-        const { todos } = this.props;
+        const { todo_list } = this.props;
+        console.log('todo_list', todo_list)
         return (
-            <Container>
-                <Content>
-                    {todos.map(todo => ToDoItem(todo))}
-                </Content>
-            </Container>
+            <FlatList
+                data={todo_list.data}
+                extraData={this.props.todo_list.data}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={this.renderToDo}
+            />
         )
     }
 }

@@ -1,43 +1,42 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { StateModels } from '../../redux/reducers';
-import {ToDo as ToDoType} from '../../redux/store';
-import {
-    ActionInterface, addToDo
-} from '../../redux/actions';
 
 import {
     Container
 ,   Content
 } from 'native-base';
-import ToDoList from '../../components/ToDoList';
-import { Navigation } from 'react-native-navigation';
 
-interface Props {
-    todos: Array<ToDoType>
-,   addToDo: ActionInterface
+import * as Screens from '../../navigation/Screens';
+import ToDoList from '../../components/ToDoList';
+import { ApplicationState } from '../../store';
+import { ToDoListState } from '../../store/todos';
+import { NavigationScreenConfigProps, NavigationScreenProps } from 'react-navigation';
+import { Button } from 'react-native';
+
+
+
+interface Props extends NavigationScreenConfigProps{
+    todo_list: ToDoListState
 }
 class Home extends React.Component<Props> {
 
-    componentDidMount() {
-        this.navigationEventListener = Navigation.events().bindComponent(this);
-    }
-
-    navigationButtonPressed({ buttonId }) {
-        switch(buttonId) {
-            case 'add_todo': {
-                this.props.addToDo('add title', 'add body');
-            }
+    static navigationOptions = ({navigation}: NavigationScreenProps) => {
+        return {
+            headerTitle: 'Home'
+            ,   headerRight: (
+                    <Button
+                        title='Add ToDo'    
+                        onPress={() => navigation.navigate(Screens.ADD_TODO)}
+                    />
+            )
         }
-    }
-
+    };
     render() {
         return (
             <Container>
                 <Content>
                     <ToDoList
-                        todos={this.props.todos}
+                        todo_list={this.props.todo_list}
                     />
                 </Content>
             </Container>
@@ -45,15 +44,11 @@ class Home extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (state: StateModels) => ({
-    todos: state.todos
-});
-
-const mapDispatchToProps = (dispach: Dispatch) => ({
-    addToDo: (title: string, body: string) => dispach(addToDo(title, body))
+const mapStateToProps = (state: ApplicationState) => ({
+    todo_list: state.todo_list
 });
 
 export default connect(
     mapStateToProps
-,   mapDispatchToProps
+,   null
 )(Home);
