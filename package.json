@@ -32,12 +32,23 @@
     "@types/redux-logger": "^3.0.6",
     "@types/remote-redux-devtools": "^0.5.3",
     "babel-jest": "23.6.0",
-    "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.51.1",
+    "detox": "^10.0.9",
+    "jest": "^23.6.0",
     "react-test-renderer": "16.6.3",
     "typescript": "^3.2.2"
   },
   "jest": {
     "preset": "react-native"
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/typeReactNative.app",
+        "build": "xcodebuild -project ios/typeReactNative.xcodeproj -scheme typeReactNative -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      }
+    },
+    "test-runner": "jest"
   }
 }
